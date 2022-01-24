@@ -1,0 +1,17 @@
+{
+    "mouse_cursor": "",
+    "mask_radius" : 10,
+
+    "webgl_dom" : "#webgl_canvas",
+    "vertex_path" : "./glsl/mask_effect.vert",
+    "frag_path" : "./glsl/mask_effect.frag",
+
+    "desktop_textures" : {
+        "front_textures" : [""],
+        "highlight_textures" : [""],
+        "count" : 1
+    },
+    "mobile_textures" : {
+
+    }
+}
