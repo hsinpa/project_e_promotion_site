@@ -39,6 +39,16 @@ class WebglUtility {
         }
     }
 
+    ApplyAspectRatioToPlane(planeVertex: PlaneVertex, aspectRatio : number) : PlaneVertex {
+
+        for (let i = 0; i < planeVertex.count; i++) {
+            planeVertex.a_position[i][0] = planeVertex.a_position[i][0] * aspectRatio;
+        }
+
+        return planeVertex;
+    }
+
+
     async GetImage(path : string) : Promise<HTMLImageElement> {
 
         if (this.textureCache.containsKey(path)) {
@@ -50,6 +60,8 @@ class WebglUtility {
 
         return texture;         
     }
+
+    
 }
 
 export default WebglUtility;

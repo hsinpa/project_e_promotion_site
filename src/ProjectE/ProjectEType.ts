@@ -20,3 +20,9 @@ export interface MaskTextureType {
     highlight_textures: string[],
     count : number
 }
+
+export interface InputInteractionType {
+    mouse_screenpos_x: number,
+    mouse_screenpos_y: number,
+    input_enable: boolean,
+}

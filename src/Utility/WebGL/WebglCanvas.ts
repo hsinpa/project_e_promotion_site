@@ -37,7 +37,7 @@ abstract class WebglCanvas {
         });
     }
 
-    private AutoSetCanvasSize() {
+    protected AutoSetCanvasSize() {
         this.SetCanvasToSceenSize(this._webglDom.clientWidth, this._webglDom.clientHeight);
     }
 
@@ -49,7 +49,7 @@ abstract class WebglCanvas {
           displayWidth = (displayWidth >= displayHeight) ? this.maxDrawBufferSize : (this.maxDrawBufferSize * displayWidth / displayHeight);
         }
   
-        console.log(displayWidth +", " + displayHeight);
+        //console.log(displayWidth +", " + displayHeight);
   
         this._webglDom.width = displayWidth;
         this._webglDom.height = displayHeight;

@@ -98,3 +98,8 @@ export function RoundToDecimal(value : number, decimal : number) {
     let d = Math.pow(10, decimal);
     return Math.round(value * d) / d;
 }
+
+export function IsMobileDevice(): boolean {
+    var ua = navigator.userAgent;
+    return /Android|webOS|iPhone|iPad|iPod/i.test(ua);
+}

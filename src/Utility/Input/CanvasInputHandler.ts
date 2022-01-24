@@ -2,7 +2,7 @@ import { IntVector2,CustomEventTypes } from '..//UniversalType';
 import EventSystem from '../EventSystem';
 
 export enum InputState {
-    MouseDown, MouseDrag, MouseUp
+    MouseDown, MouseDrag, MouseUp, MouseMove
 }
 
 class InputHandler {
@@ -33,12 +33,13 @@ class InputHandler {
     }
 
     private OnMouseMove(e : MouseEvent) {
-        
+        let mousePos = this.GetMousePosVector(e);
+
+        this.eventSystem.Notify(CustomEventTypes.MouseMoveEvent, {mousePosition : mousePos});
+
         if (!this._isMouseDown) return;
 
         if (e.timeStamp < this._lastEventTime) return;
-
-        let mousePos = this.GetMousePosVector(e);
 
         this.eventSystem.Notify(CustomEventTypes.MouseDragEvent, {mousePosition : mousePos});
 
