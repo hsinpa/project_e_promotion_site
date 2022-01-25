@@ -6,26 +6,25 @@ import {CustomEventTypes, IntVector2 } from '../../Utility/UniversalType';
 
 export class MaskHighLight {
 
+    currentIndex = 0;
+    rotateCount = 0;
+
     _front_textures : HTMLImageElement[];
     _highlight_textures : HTMLImageElement[];
-    _currentIndex = 0;
+    _noise_texture : HTMLImageElement;
     _isMobileDevice = false;
     _config: ProjectEConfig;
-    _input : InputHandler;
-    _eventSystem : EventSystem;
     
     inputInteractionType : InputInteractionType;
     maskTexType : MaskTextureType;
 
     constructor(webgl:HTMLCanvasElement, config: ProjectEConfig) {
         this._config = config;
-        this._eventSystem = new EventSystem();
 
-        this._input = new InputHandler(webgl, this._eventSystem);
-        this._eventSystem.ListenToEvent(CustomEventTypes.MouseMoveEvent, this.OnMouseMoveEvent.bind(this));
-        //this._eventSystem.ListenToEvent(CustomEventTypes.MouseDragEvent, this.OnMouseMoveEvent.bind(this));
 
-        this._isMobileDevice = IsMobileDevice();
+        //this._isMobileDevice = IsMobileDevice();
+
+        this._isMobileDevice = true;
 
         this.inputInteractionType = {
             mouse_screenpos_x :0,
@@ -39,6 +38,8 @@ export class MaskHighLight {
     public async CacheMaskTexture() {
         this.maskTexType = (this._isMobileDevice) ? this._config.mobile_textures : this._config.desktop_textures;
 
+        this._noise_texture = await GetImagePromise(this._config.noise_tex_path);
+
         this._front_textures = [];
         this._highlight_textures = [];
 
@@ -49,19 +50,29 @@ export class MaskHighLight {
     }
 
     public GetCurrentPairTexture() : [HTMLImageElement, HTMLImageElement]{
-        return [this._front_textures[this._currentIndex], this._highlight_textures[this._currentIndex] ];
+        return [this._front_textures[this.currentIndex], this._highlight_textures[this.currentIndex] ];
     }
 
-    public GetNextPairTexture() : [HTMLImageElement, HTMLImageElement] {
-        this._currentIndex = (this._currentIndex + 1) % this.maskTexType.count;
-        return [this._front_textures[this._currentIndex], this._highlight_textures[this._currentIndex] ];
+    public GetPairTexture(index : number) : [HTMLImageElement, HTMLImageElement] {
+        if (index >= this.maskTexType.count) return null;
+        
+        return [this._front_textures[index], this._highlight_textures[index] ];
     }
 
-    //#region  Input Event
-    private OnMouseMoveEvent(e: any) {
-        this.inputInteractionType.mouse_screenpos_x = e.mousePosition.x;
-        this.inputInteractionType.mouse_screenpos_y = e.mousePosition.y;
+    public IncrementIndex() : number {
+        this.rotateCount++;
+        return this.currentIndex = (this.currentIndex + 1) % this.maskTexType.count;
     }
 
+    public OnUpdate(time: number) {
+
+
+    }
+
+    //#region Input Event
+    public OnMouseMoveEvent(screen_x: number, screen_y: number) {
+        this.inputInteractionType.mouse_screenpos_x = screen_x;
+        this.inputInteractionType.mouse_screenpos_y = screen_y;
+    }
     //#endregion
 }

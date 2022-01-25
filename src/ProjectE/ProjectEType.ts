@@ -1,11 +1,15 @@
 export interface ProjectEConfig {
-    mouse_cursor : string,
+    mouse_dom : string,
     mask_radius : number,
 
     comingsoon_dom : string,
     webgl_dom : string,
     vertex_path : string,
     frag_path : string,
+    noise_tex_path: string,
+    
+    texture_rotation_time: number,
+    texture_transition_time: number,
 
     desktop_textures: MaskTextureType
     mobile_textures: MaskTextureType

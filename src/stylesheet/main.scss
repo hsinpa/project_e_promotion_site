@@ -17,9 +17,10 @@ html, body {
 }
 
 div .logo_image {
-    width: 45rem;
+    width: 55rem;
+    max-width: 95%;
     position: absolute;
-    top: 53%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     margin: 0px 0px;
@@ -28,21 +29,21 @@ div .logo_image {
 
 p.coming_soon {
     color : white;
-    font-size: 1.5rem;
+    font-size: 1rem;
     position: absolute;
-    top: 92%;
-    left: 50%;
+    top: 78%;
+    left: 51%;
     transform: translate(-50%, -50%);
     margin: 0px 0px;
     padding: 0px 0px;
     font-family: Cardo-Regular, Arial, Helvetica, sans-serif;
-    min-width: 14rem;
+    min-width: 11.5rem;
 }
 
 header {
     display:flex;
     position: absolute;
-    width: 97%;
+    width: 99%;
     justify-content: right;
     flex-wrap:wrap;
     text-align: right;
@@ -50,9 +51,36 @@ header {
 }
 
 header a {
-    flex-basis:5%;
+    margin: 0rem 1rem;
+    :hover {
+        filter: invert(43%) sepia(41%) saturate(1440%) hue-rotate(155deg) brightness(106%) contrast(102%);
+    }
 }
 
 header a img {
     width: 1.8rem;
 }
+
+
+body {
+    cursor: none;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+
+    * {
+      cursor: inherit;
+    }
+  }
+#cursor {
+    position: absolute;
+    left: -50px;
+    top: -50px;
+    will-change: transform;
+    transform: translate(-999px, -999px);
+    pointer-events: none;
+  
+    img {
+      will-change: transform;
+      transition: transform .1s linear;
+    }
+  }
