@@ -20,9 +20,9 @@ class InputHandler {
         this._webglCanvas = webglCanvas;
         this.eventSystem = eventSystem;
     
-        this._webglCanvas.addEventListener('mousedown', this.OnMouseDown.bind(this));
-        this._webglCanvas.addEventListener('mouseup', this.OnMouseUp.bind(this));
-        this._webglCanvas.addEventListener('mousemove', this.OnMouseMove.bind(this));
+        window.addEventListener('mousedown', this.OnMouseDown.bind(this));
+        window.addEventListener('mouseup', this.OnMouseUp.bind(this));
+        window.addEventListener('mousemove', this.OnMouseMove.bind(this));
     }
 
     private OnMouseDown(e : MouseEvent) {

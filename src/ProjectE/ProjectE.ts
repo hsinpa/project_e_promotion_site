@@ -6,6 +6,7 @@ import {CreateREGLCommandObj, ExecuteREGLCommand} from './ProjectERegl';
 import CanvasInputHandler from '../Utility/Input/CanvasInputHandler';
 import EventSystem from '../Utility/EventSystem';
 
+import TextAnimation from './Effect/TextAnimation';
 import { MaskHighLight } from './Effect/MaskHighlight';
 import { PlaneVertex } from '../Utility/UniversalType';
 
@@ -16,7 +17,10 @@ class ProjectE extends WebGLCanvas{
 
     inputHandler : CanvasInputHandler;
     eventSystem : EventSystem;
+    
     maskHighlight : MaskHighLight;
+    textAnimation: TextAnimation;
+
     private previousTimeStamp : number = 0;
     public time : number;
 
@@ -28,8 +32,10 @@ class ProjectE extends WebGLCanvas{
         super(config.webgl_dom);
         this.webglUtility = new WebglUtility();
         this.eventSystem = new EventSystem();
-        this.maskHighlight = new MaskHighLight(this._webglDom, config);
         
+        this.maskHighlight = new MaskHighLight(this._webglDom, config);
+        this.textAnimation = new TextAnimation(config.comingsoon_dom, "Coming Soon", " . ",  1, 4);
+
         this.inputHandler = new CanvasInputHandler(this._webglDom, this.eventSystem);
 
         this.InitProcess(config.vertex_path, config.frag_path);
@@ -57,12 +63,15 @@ class ProjectE extends WebGLCanvas{
             this._reglContext,
             glslSetting.vertex_shader, 
             glslSetting.fragment_shader,
-            this._currentFrontTex, this._currentHighlightTex, this._planeVertex.a_uv, this._planeVertex.count);
+            this._currentFrontTex, 
+            this._currentHighlightTex, 
+            this._planeVertex.a_uv, 
+            this.maskHighlight.maskTexType.scale,
+            this._planeVertex.count);
     }
 
     DrawREGLCavnas() {
         this._reglContext.frame(({time}) => {
-
 
             let clipPos = this.ScreenPositionToClipSpace(this.maskHighlight.inputInteractionType.mouse_screenpos_x, this.maskHighlight.inputInteractionType.mouse_screenpos_y);
 
@@ -80,6 +89,8 @@ class ProjectE extends WebGLCanvas{
                 mousePos : [clipPos.x, clipPos.y],
                 isMouseEnable: 1,
             });
+
+            this.textAnimation.OnUpdate(time);
         });
     }
 

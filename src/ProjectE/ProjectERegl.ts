@@ -21,7 +21,7 @@ export function ExecuteREGLCommand(regl : Regl, drawCommand : REGL.DrawCommand, 
 
 export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : string, 
     frontTex : REGL.Texture, highlightTex: REGL.Texture, 
-    a_uv : number[][], vertex_count: number
+    a_uv : number[][], scale : number, vertex_count: number
     ) {
     return regl({
         frag: fragment,
@@ -33,6 +33,7 @@ export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : st
         },
 
         uniforms: {
+            u_scale : scale,
             u_front_tex : frontTex,
             u_highlight_tex : highlightTex,
             u_time: regl.prop<CustomReglPropType, "time">("time"),

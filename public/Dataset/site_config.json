@@ -2,16 +2,21 @@
     "mouse_cursor": "",
     "mask_radius" : 10,
 
+    "comingsoon_dom" : "p.coming_soon",
     "webgl_dom" : "#webgl_canvas",
     "vertex_path" : "./glsl/mask_effect.vert",
     "frag_path" : "./glsl/mask_effect.frag",
 
     "desktop_textures" : {
-        "front_textures" : ["./image/desktop_front.png"],
-        "highlight_textures" : ["./image/desktop_highlight.png"],
+        "scale" : 0.8,
+        "front_textures" : ["./image/desktop/Silhouette_composite.png"],
+        "highlight_textures" : ["./image/desktop/Silhouette_composite_color.png"],
         "count" : 1
     },
     "mobile_textures" : {
-
+        "scale" : 0.8,
+        "front_textures" : ["./image/mobile/mobile_front_a.png", "./image/mobile/mobile_front_b.png", "./image/mobile/mobile_front_c.png"],
+        "highlight_textures" : ["./image/mobile/mobile_highlight_a.png", "./image/mobile/mobile_highlight_b.png", "./image/mobile/mobile_highlight_c.png"],
+        "count" : 3
     }
 }

@@ -9,14 +9,14 @@ export class MaskHighLight {
     _front_textures : HTMLImageElement[];
     _highlight_textures : HTMLImageElement[];
     _currentIndex = 0;
-    _totalCount = 0;
     _isMobileDevice = false;
     _config: ProjectEConfig;
     _input : InputHandler;
     _eventSystem : EventSystem;
     
     inputInteractionType : InputInteractionType;
-    
+    maskTexType : MaskTextureType;
+
     constructor(webgl:HTMLCanvasElement, config: ProjectEConfig) {
         this._config = config;
         this._eventSystem = new EventSystem();
@@ -37,15 +37,14 @@ export class MaskHighLight {
     }
 
     public async CacheMaskTexture() {
-        let maskTextureType = (this._isMobileDevice) ? this._config.mobile_textures : this._config.desktop_textures;
+        this.maskTexType = (this._isMobileDevice) ? this._config.mobile_textures : this._config.desktop_textures;
 
-        this._totalCount = maskTextureType.count;
         this._front_textures = [];
         this._highlight_textures = [];
 
-        for (let i = 0; i < this._totalCount; i++) {
-            this._front_textures.push(await GetImagePromise(maskTextureType.front_textures[i]));
-            this._highlight_textures.push(await GetImagePromise(maskTextureType.highlight_textures[i])); 
+        for (let i = 0; i < this.maskTexType.count; i++) {
+            this._front_textures.push(await GetImagePromise(this.maskTexType.front_textures[i]));
+            this._highlight_textures.push(await GetImagePromise(this.maskTexType.highlight_textures[i])); 
         }
     }
 
@@ -54,7 +53,7 @@ export class MaskHighLight {
     }
 
     public GetNextPairTexture() : [HTMLImageElement, HTMLImageElement] {
-        this._currentIndex = (this._currentIndex + 1) % this._totalCount;
+        this._currentIndex = (this._currentIndex + 1) % this.maskTexType.count;
         return [this._front_textures[this._currentIndex], this._highlight_textures[this._currentIndex] ];
     }
 

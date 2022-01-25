@@ -2,6 +2,7 @@ export interface ProjectEConfig {
     mouse_cursor : string,
     mask_radius : number,
 
+    comingsoon_dom : string,
     webgl_dom : string,
     vertex_path : string,
     frag_path : string,
@@ -18,11 +19,13 @@ export interface VertexAttributeType {
 export interface MaskTextureType {
     front_textures : string[],
     highlight_textures: string[],
+    scale: number,
     count : number
 }
 
 export interface InputInteractionType {
     mouse_screenpos_x: number,
     mouse_screenpos_y: number,
+
     input_enable: boolean,
 }
