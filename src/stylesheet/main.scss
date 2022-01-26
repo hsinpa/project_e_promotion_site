@@ -43,12 +43,16 @@ div .logo_image {
 
 header {
     float: right;
+
+    width : 10rem;
+    height: 3rem;
     padding-top: 2rem;
-    padding-right: 1rem;
+    padding-right: 0.8rem;
+    text-align: center;
 }
 
 header a {
-    margin: 0rem 1rem;
+    margin: 0rem 0.8rem;
 
     :hover {
         filter: invert(28%) sepia(53%) saturate(3039%) hue-rotate(10deg) brightness(102%) contrast(103%);
