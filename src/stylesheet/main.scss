@@ -42,22 +42,17 @@ div .logo_image {
 }
 
 header {
-    display: -webkit-flex; /*webkit*/
-    display:flex;
-    position: absolute;
-    width: 99%;
-    -webkit-justify-content:right;
-    justify-content: right;
-    flex-wrap:wrap;
-    text-align: right;
+    float: right;
     padding-top: 2rem;
+    padding-right: 1rem;
 }
 
 header a {
     margin: 0rem 1rem;
 
     :hover {
-        filter:  invert(30%) sepia(67%) saturate(2640%) hue-rotate(10deg) brightness(95%) contrast(103%);
+        filter: invert(28%) sepia(53%) saturate(3039%) hue-rotate(10deg) brightness(102%) contrast(103%);
+
     }
 }
 
