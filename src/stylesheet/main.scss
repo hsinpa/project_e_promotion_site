@@ -42,6 +42,7 @@ div .logo_image {
 }
 
 header {
+    display: -webkit-flex; /*webkit*/
     display:flex;
     position: absolute;
     width: 99%;
@@ -54,9 +55,8 @@ header {
 header a {
     margin: 0rem 1rem;
 
-
     :hover {
-        filter: invert(43%) sepia(41%) saturate(1440%) hue-rotate(155deg) brightness(106%) contrast(102%);
+        filter:  invert(30%) sepia(67%) saturate(2640%) hue-rotate(10deg) brightness(95%) contrast(103%);
     }
 }
 
