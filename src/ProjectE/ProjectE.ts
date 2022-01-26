@@ -34,6 +34,7 @@ class ProjectE extends WebGLCanvas{
     private _planeVertex : PlaneVertex;
     private _config: ProjectEConfig;
     private _blackColor : REGL.Vec4;
+    private _clipMousePos = [0,0];
 
     constructor( config: ProjectEConfig) {
         super(config.webgl_dom);
@@ -113,7 +114,6 @@ class ProjectE extends WebGLCanvas{
                 time : time,
                 mousePos : [clipPos.x, clipPos.y],
                 isMouseEnable: this.mouseAnimation.TouchVisibility,
-                textureIdentifier : this.maskHighlight.Identifier,
                 textureLerpValue: this.maskHighlight.LerpValue,
             });
 

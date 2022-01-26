@@ -23,8 +23,8 @@ export class MaskHighLight {
 
     constructor(webgl:HTMLCanvasElement, config: ProjectEConfig) {
         this._config = config;
-        this.IsMobileDevice = IsMobileDevice();
-        //this.IsMobileDevice = true;
+        // this.IsMobileDevice = IsMobileDevice();
+        this.IsMobileDevice = true;
         this._recordTexRotTime = this._config.texture_rotation_time;
 
         this.inputInteractionType = {
@@ -33,7 +33,7 @@ export class MaskHighLight {
             input_enable: (!this.IsMobileDevice)
         }
 
-        console.log("Is Mobile Device "+ this.IsMobileDevice);
+        // console.log("Is Mobile Device "+ this.IsMobileDevice);
     }
 
     public async CacheMaskTexture() {
