@@ -22,9 +22,9 @@ export class MaskHighLight {
         this._config = config;
 
 
-        //this._isMobileDevice = IsMobileDevice();
+        this._isMobileDevice = IsMobileDevice();
 
-        this._isMobileDevice = true;
+        //this._isMobileDevice = true;
 
         this.inputInteractionType = {
             mouse_screenpos_x :0,
