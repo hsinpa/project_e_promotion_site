@@ -72,10 +72,11 @@ class ProjectE extends WebGLCanvas{
         if (textureBSet == null)
             textureBSet = textureASet;
 
+        //Keep the first rotation longer with double set
         this._FrontTexA = this._reglContext.texture({data:textureASet[0], flipY: true});
         this._HighlightTexA = this._reglContext.texture({data:textureASet[1], flipY: true});
-        this._FrontTexB = this._reglContext.texture({data:textureBSet[0], flipY: true});
-        this._HighlightTexB = this._reglContext.texture({data:textureBSet[1], flipY: true});
+        this._FrontTexB = this._reglContext.texture({data:textureASet[0], flipY: true});
+        this._HighlightTexB = this._reglContext.texture({data:textureASet[1], flipY: true});
 
         this._recordTexRotTime =  this._config.texture_rotation_time;
         this.UpdatePlaneVertex();
@@ -109,7 +110,6 @@ class ProjectE extends WebGLCanvas{
             {
                 position : this._planeVertex.a_position,
                 time : time,
-                mainColor: [0, 0, 0, 1],
                 mousePos : [clipPos.x, clipPos.y],
                 isMouseEnable: 1,
                 textureIdentifier : this._identifier,
@@ -125,15 +125,20 @@ class ProjectE extends WebGLCanvas{
     }
 
     private UpdateMaskHighLight(time: number) {
-        
+
         if (time < this._recordTexRotTime) {
+            //By pass the first rotation
+            if (this.maskHighlight.rotateCount == 0) {
+                this._lerpValue = 1;
+                return;
+            }
             this._lerpValue = Clamp(
                 NormalizeByRange(time, this._recordTexRotTime - this._config.texture_rotation_time, this._recordTexRotTime - this._config.texture_transition_time), 
                 0, 1);
 
             if (this._identifier == 1)
-                this._lerpValue = 1 - this._lerpValue;
-
+                this._lerpValue = 1 - this._lerpValue;   
+            
             return;
         }
 
@@ -143,6 +148,8 @@ class ProjectE extends WebGLCanvas{
         let currentTextureSet = this.maskHighlight.GetPairTexture(currentIndex);
 
         this._identifier = this.maskHighlight.rotateCount % 2;
+
+        // console.log(`identifier ${this._identifier}, index ${currentIndex}, rotation ${this.maskHighlight.rotateCount}`);
 
         if (this._identifier == 0) {
             this._FrontTexB.subimage(currentTextureSet[0]);

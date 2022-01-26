@@ -38,6 +38,11 @@ p.coming_soon {
     padding: 0px 0px;
     font-family: Cardo-Regular, Arial, Helvetica, sans-serif;
     min-width: 11.5rem;
+
+    @media (max-width: 750px) { 
+        font-size: 1.3rem;
+        min-width: 13rem;
+    }
 }
 
 header {
@@ -52,6 +57,8 @@ header {
 
 header a {
     margin: 0rem 1rem;
+
+
     :hover {
         filter: invert(43%) sepia(41%) saturate(1440%) hue-rotate(155deg) brightness(106%) contrast(102%);
     }
@@ -59,6 +66,9 @@ header a {
 
 header a img {
     width: 1.8rem;
+    @media (max-width: 750px) { 
+        width: 3rem;
+    }
 }
 
 

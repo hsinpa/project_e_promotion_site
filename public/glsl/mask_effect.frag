@@ -26,7 +26,7 @@ void main() {
 
     float t = u_time * 0.5;
     vec4 noiseOffset = texture2D(u_noise_tex, vec2(uv.x + t,  uv.y + sin(t) * 0.25));
-    float normalizeOffset = ( ((noiseOffset.x * 2.0) - 1.0)) * 0.03 * noiseStr;
+    float normalizeOffset =  ((noiseOffset.x * 2.0) - 1.0) * 0.02 * noiseStr;
 
     vec2 texUV = vec2(uv.x + normalizeOffset, uv.y + normalizeOffset);
     vec4 frontTexA = texture2D(u_front_tex_a, texUV );

@@ -4,7 +4,6 @@ import {VertexAttributeType} from './ProjectEType';
 export interface CustomReglPropType {
     position : number[][],
     time : number,
-    mainColor : number[],
     mousePos : number[],
     isMouseEnable : number,
     textureIdentifier : number,
@@ -15,7 +14,6 @@ export function ExecuteREGLCommand(regl : Regl, drawCommand : REGL.DrawCommand, 
     drawCommand({
         position : vertexAttrType.position,
         time : (vertexAttrType.time),
-        mainColor : vertexAttrType.mainColor,
         mousePos : (vertexAttrType.mousePos),
         isMouseEnable : vertexAttrType.isMouseEnable,
         textureIdentifier : vertexAttrType.textureIdentifier,
@@ -48,13 +46,11 @@ export function CreateREGLCommandObj(regl : Regl, vertex : string, fragment : st
             u_highlight_tex_b : highlightTexB,
 
             u_time: regl.prop<CustomReglPropType, "time">("time"),
-            u_mainColor: regl.prop<CustomReglPropType, "mainColor">("mainColor"),
             u_mousePos: regl.prop<CustomReglPropType, "mousePos">("mousePos"),
             u_isMouseEnable: regl.prop<CustomReglPropType, "isMouseEnable">("isMouseEnable"),
 
             u_textureIdentifier: regl.prop<CustomReglPropType, "textureIdentifier">("textureIdentifier"),
             u_textureLerpValue: regl.prop<CustomReglPropType, "textureLerpValue">("textureLerpValue"),
-
         },
 
         count: vertex_count
