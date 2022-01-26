@@ -125,6 +125,10 @@ class ProjectE extends WebGLCanvas{
     }
 
     private UpdateMaskHighLight(time: number) {
+        //Only mobile device need transition animation effect
+        if (!this.maskHighlight.IsMobileDevice) {
+            return;
+        }
 
         if (time < this._recordTexRotTime) {
             //By pass the first rotation
@@ -185,7 +189,7 @@ class ProjectE extends WebGLCanvas{
         this.maskHighlight.OnMouseMoveEvent(e.mousePosition.x, e.mousePosition.y);
 
         let mouseOffset = 40;
-        this.mouseAnimation.OnMouseMoveEvent(e.mousePosition.x + mouseOffset, this._webglDom.height - e.mousePosition.y + mouseOffset); //Css Y pos offset
+        this.mouseAnimation.OnMouseMoveEvent(e.mousePosition.x + mouseOffset, this._webglDom.clientHeight - e.mousePosition.y + mouseOffset); //Css Y pos offset
     }
     //#endregion
 }

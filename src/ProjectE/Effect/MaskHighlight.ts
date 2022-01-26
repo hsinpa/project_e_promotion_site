@@ -12,31 +12,30 @@ export class MaskHighLight {
     _front_textures : HTMLImageElement[];
     _highlight_textures : HTMLImageElement[];
     _noise_texture : HTMLImageElement;
-    _isMobileDevice = false;
     _config: ProjectEConfig;
     
     inputInteractionType : InputInteractionType;
     maskTexType : MaskTextureType;
 
+    IsMobileDevice = false;
+
     constructor(webgl:HTMLCanvasElement, config: ProjectEConfig) {
         this._config = config;
-
-
-        this._isMobileDevice = IsMobileDevice();
+        this.IsMobileDevice = IsMobileDevice();
 
         //this._isMobileDevice = true;
 
         this.inputInteractionType = {
             mouse_screenpos_x :0,
             mouse_screenpos_y : 0,
-            input_enable: (!this._isMobileDevice)
+            input_enable: (!this.IsMobileDevice)
         }
 
-        console.log("Is Mobile Device "+ this._isMobileDevice);
+        console.log("Is Mobile Device "+ this.IsMobileDevice);
     }
 
     public async CacheMaskTexture() {
-        this.maskTexType = (this._isMobileDevice) ? this._config.mobile_textures : this._config.desktop_textures;
+        this.maskTexType = (this.IsMobileDevice) ? this._config.mobile_textures : this._config.desktop_textures;
 
         this._noise_texture = await GetImagePromise(this._config.noise_tex_path);
 
