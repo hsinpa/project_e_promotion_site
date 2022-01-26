@@ -1,8 +1,6 @@
 import {MaskTextureType, ProjectEConfig, InputInteractionType} from '../ProjectEType';
-import {IsMobileDevice, GetImagePromise} from '../../Utility/UtilityMethod';
-import InputHandler, {InputState} from '../../Utility/Input/CanvasInputHandler';
-import EventSystem from '../../Utility/EventSystem';
-import {CustomEventTypes, IntVector2 } from '../../Utility/UniversalType';
+import {IsMobileDevice, GetImagePromise, NormalizeByRange, Lerp, Clamp} from '../../Utility/UtilityMethod';
+import REGL from 'regl';
 
 export class MaskHighLight {
 
@@ -19,11 +17,15 @@ export class MaskHighLight {
 
     IsMobileDevice = false;
 
+    private _recordTexRotTime: number;
+    public Identifier : number = 0;
+    public LerpValue : number = 0;
+
     constructor(webgl:HTMLCanvasElement, config: ProjectEConfig) {
         this._config = config;
         this.IsMobileDevice = IsMobileDevice();
-
-        //this._isMobileDevice = true;
+        //this.IsMobileDevice = true;
+        this._recordTexRotTime = this._config.texture_rotation_time;
 
         this.inputInteractionType = {
             mouse_screenpos_x :0,
@@ -63,10 +65,52 @@ export class MaskHighLight {
         return this.currentIndex = (this.currentIndex + 1) % this.maskTexType.count;
     }
 
-    public OnUpdate(time: number) {
+    public OnUpdate(time: number, frontTexA : REGL.Texture2D, highlightTexA: REGL.Texture2D, 
+        frontTexB : REGL.Texture2D, highlightTexB: REGL.Texture2D) {
 
+        //Only mobile device need transition animation effect
+        if (!this.IsMobileDevice) {
+            return;
+        }
 
+        if (time < this._recordTexRotTime) {
+            //By pass the first rotation
+            if (this.rotateCount == 0) {
+                this.LerpValue = 1;
+                return;
+            }
+            this.LerpValue = Clamp(
+                NormalizeByRange(time, this._recordTexRotTime - this._config.texture_rotation_time, this._recordTexRotTime - this._config.texture_transition_time), 
+                0, 1);
+
+            if (this.Identifier == 1)
+                this.LerpValue = 1 - this.LerpValue;   
+            
+            return;
+        }
+
+        this._recordTexRotTime = time + this._config.texture_rotation_time;
+
+        let currentIndex = this.IncrementIndex();
+        let currentTextureSet = this.GetPairTexture(currentIndex);
+
+        this.Identifier = this.rotateCount % 2;
+
+        // console.log(`identifier ${this._identifier}, index ${currentIndex}, rotation ${this.maskHighlight.rotateCount}`);
+
+        if (this.Identifier == 0) {
+            frontTexB.subimage(currentTextureSet[0]);
+            highlightTexB.subimage(currentTextureSet[1]);
+            return;
+        }
+
+        if (this.Identifier == 1) {
+            frontTexA.subimage(currentTextureSet[0]);
+            highlightTexA.subimage(currentTextureSet[1]);
+            return;
+        }
     }
+
 
     //#region Input Event
     public OnMouseMoveEvent(screen_x: number, screen_y: number) {
