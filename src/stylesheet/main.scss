@@ -46,6 +46,7 @@ header {
     display:flex;
     position: absolute;
     width: 99%;
+    -webkit-justify-content:right;
     justify-content: right;
     flex-wrap:wrap;
     text-align: right;
