@@ -39,11 +39,16 @@ div .logo_image {
     margin: 0px 0px;
     padding: 0px 0px;
     font-family: Cardo-Regular, Arial, Helvetica, sans-serif;
+
+    @media only screen and (max-width: 768px){ 
+        width: 4.7rem;
+        top: 69%;
+    }
 }
 
 header {
     position: absolute;
-    right : 15px;
+    right : 18px;
     width : 8rem;
     height: 3rem;
     text-align: center;
@@ -52,21 +57,36 @@ header {
 header a {
     float: right;
 
-    margin: 30px 15px;
-
-    :hover {
-        filter: invert(28%) sepia(53%) saturate(3039%) hue-rotate(10deg) brightness(102%) contrast(103%);
-
-    }
-}
-
-header a img {
+    margin: 30px 7px;
     width: 1.8rem;
-    @media only screen and (max-width: 768px){ 
-        width: 2rem;
+    height: 1.8rem;
+
+    // @media only screen and (max-width: 768px){ 
+    //     width: 2rem;
+    //     height: 2rem;
+    // }
+
+    background-repeat:no-repeat;
+}
+
+header .discord {
+    background-image: url("./image/icon/discord-idle.png");
+    :hover {
+        background-image: url("./image/icon/discord-highlight.png");
     }
 }
 
+header .discord:hover {
+    background-image: url("./image/icon/discord-highlight.png");
+}
+
+header .twitter {
+    background-image: url("./image/icon/twitter-idle.png");
+}
+
+header .twitter:hover {
+    background-image: url("./image/icon/twitter-highlight.png");
+}
 
 body {
     cursor: none;
